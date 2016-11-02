@@ -29,11 +29,14 @@ Benchmark
 
 Simple test and benchmark included, see `test.lua`. The results are quite interesting. While vanilla Lua 5.2.4 `table.sort` is about 10 times faster than this implementation, on LuaJIT 2.1 I had approx. __30% speed gain__.Sorting FFI arrays is slower than sorting tables. Yep, sometimes pure Lua code just faster than super optimized built-in functions :). 
 
-Results of sorting uniform distributed arrays of 10 000 000 elements in seconds.
-table.sort          4.953
-mergesort           3.972
-mergesort prealloc  3.831
-mergesort doubles   4.524
-mergesort floats    5.453
+Results of sorting uniform distributed arrays of 10 000 000 elements in seconds:
+
+case               | time(seconds)
+-------------------|--------------
+table.sort         | 4.953
+mergesort          | 3.972
+mergesort prealloc | 3.831
+mergesort doubles  | 4.524
+mergesort floats   | 5.453
 
 Tested on iMac Core i5 2.9 GHz, 32 Gb RAM, LuaJIT 2.1.0-beta1 (torch7).
