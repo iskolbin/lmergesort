@@ -3,13 +3,13 @@ local function lt( x, y )
 	return x < y
 end
 
-return function( a, cmp, b )
-	cmp, b = cmp or lt, b or {}
+return function( a, cmp, b, num, pad )
+	cmp, b, num, pad = cmp or lt, b or {}, num or #a, pad or 1 
 	
 	local rght, wid, rend
 	local i, j, m, t
-	local num = #a
 	local k = 1
+
 	while k < num do
 		for left = 0, num-k-1, k+k do
 			rght = left + k
@@ -22,28 +22,28 @@ return function( a, cmp, b )
 			m, i, j = left, left, rght
 
 			while i < rght and j < rend do
-				if cmp( a[i+1], a[j+1] ) then
-					b[m+1] = a[i+1]
+				if cmp( a[i+pad], a[j+pad] ) then
+					b[m+pad] = a[i+pad]
 					i = i + 1
 				else
-					b[m+1] = a[j+1]
+					b[m+pad] = a[j+pad]
 					j = j + 1
 				end
 				m = m + 1
 			end
 
 			while i < rght do
-				b[m+1] = a[i+1]
+				b[m+pad] = a[i+pad]
 				i, m = i + 1, m + 1
 			end
 
 			while j < rend do
-				b[m+1] = a[j+1]
+				b[m+pad] = a[j+pad]
 				j, m = j + 1, m + 1
 			end
 
 			for l = left, rend-1 do
-				a[l+1] = b[l+1]
+				a[l+pad] = b[l+pad]
 			end
 		end
 

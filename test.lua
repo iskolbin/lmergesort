@@ -1,3 +1,7 @@
+local ok, ffi = pcall( require, 'ffi' )
+
+ffi = ok and ffi or nil
+
 local function asserteq( x, y )
 	assert( type(x) == type(y) and type(x) == 'table', 'wrong types')
 	assert( #x == #y, 'length mismatch')
@@ -38,6 +42,16 @@ for _, n in ipairs{100,1000,10000,100000,1000000,10000000} do
 		c[i] = a[i]
 		buffer[i] = 0
 	end
+
+	local d, db, f, fb
+	if ffi then
+		d, db, f, fb = ffi.new( 'double[?]', n ), ffi.new( 'double[?]', n), ffi.new( 'float[?]', n), ffi.new( 'float[?]',n)
+		for i = 0, n-1 do
+			d[i] = a[i+1]
+			f[i] = a[i+1]
+		end
+	end
+
 	-- table.sort
 	collectgarbage()
 	local t1 = os.clock()
@@ -71,6 +85,7 @@ for _, n in ipairs{100,1000,10000,100000,1000000,10000000} do
 	sort(c, nil, buffer)
 	local t12 = os.clock()
 
+
 	print( 'N', n )
 	print( 'table.sort uniform', t2 - t1 )
 	print( 'table.sort sorted', t8 - t7 )
@@ -78,6 +93,22 @@ for _, n in ipairs{100,1000,10000,100000,1000000,10000000} do
 	print( 'mergesort sorted', t10 - t9 )
 	print( 'mergesort prealloc uniform', t6 - t5 ) 
 	print( 'mergesort prealloc sorted', t12 - t11 ) 
+	
+	if ffi then
+		collectgarbage()
+		local t13 = os.clock()
+		sort(d, nil, db, n, 0)
+		local t14 = os.clock()
+
+		collectgarbage()
+		local t15 = os.clock()
+		sort(f, nil, fb, n, 0)
+		local t16 = os.clock()
+	
+		print( 'ffi' )
+		print( 'mergesort doubles', t14-t13 )
+		print( 'mergesort floats', t16-t15 )
+	end
 
 	for i = 1, n do
 		if a[i] ~= b[i] then
