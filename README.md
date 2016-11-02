@@ -6,7 +6,7 @@ Non recursive Lua merge sort implementation ported from [snipplet taken from Sta
 Useage
 ------
 
-`sort( src, [cmp=\<, [dest=\{\}, [length=#src, [start=1]]]] )`
+`sort( src, [cmp=<, [dest={}, [length=#src, [start=1]]]] )`
 
 ```lua
 local sort = require('mergesort')
