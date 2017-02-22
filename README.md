@@ -16,18 +16,18 @@ Requiring library yields sorting function which accepts up to 5 arguments.
 When called with 1 or 2 argument it behaves like `table.sort`, i.e. sort
 array in ascending order if comparator(second argument) is not provided.
 
-`sort( src )`
-`sort( src, comparator )`
+* `sort( src )`
+* `sort( src, comparator )`
 
 If third argument provided it's used as resulting buffer:
 
-`sort( src, comparator, buffer )`
+* `sort( src, comparator, buffer )`
 
 Note, you cannot use `src` as `buffer`! Also It's possible to
 pass length of sorting array and offset from where to start.
 
-`sort( src, comparator, buffer, length )`
-`sort( src, comparator, buffer, length, offset )`
+* `sort( src, comparator, buffer, length )`
+* `sort( src, comparator, buffer, length, offset )`
 
 ```lua
 local sort = require('mergesort')
