@@ -23,8 +23,8 @@ If third argument provided it's used as resulting buffer:
 
 * `sort( src, comparator, buffer )`
 
-Note, you cannot use `src` as `buffer`! Also It's possible to
-pass length of sorting array and offset from where to start.
+**Note, you cannot use `src` as `buffer`**. Also It's possible to
+pass the length of the sorting array and the offset from where to start.
 
 * `sort( src, comparator, buffer, length )`
 * `sort( src, comparator, buffer, length, offset )`
@@ -32,13 +32,13 @@ pass length of sorting array and offset from where to start.
 ```lua
 local sort = require('mergesort')
 local a = sort{1,2,3,1,2,3} -- sort returns it's result, creating new table
-local b = sort({1,2,3,1,2,3}, function(a,b) return a > b end ) -- using custum comparator
-local c = sort({1,2,3,1,2,3}, nil, {0,0,0,0,0,0,0}) -- use preallocated buffer (which returned to c variable)
+local b = sort({1,2,3,1,2,3}, function(a,b) return a > b end ) -- using custom comparator
+local c = sort({1,2,3,1,2,3}, nil, {0,0,0,0,0,0,0}) -- use preallocated buffer 
 ```
 
 Because it's plain Lua you can actually use it to sort LuaJIT FFI-created arrays
-of any type. Note that they are indexed from zero, not one like Lua tables,
-you need to pass more parameters to function.
+of any type. Note that they are indexed from zero, not from one like Lua tables,
+so you need to `length` and `offset` parameters to the function.
 
 ```lua
 local ffi = require( 'ffi' )
@@ -50,7 +50,7 @@ b = sort( a, nil, b, 6, 0 ) -- we need to pass length(6) and starting index(0)
 Benchmark
 ---------
 
-Simple test and benchmark included, see `bench.lua`. The results are quite
+Simple benchmark is included in `bench.lua` file. The results are quite
 interesting. While vanilla Lua 5.2.4 `table.sort` is about 10 times faster
 than this implementation, on LuaJIT 2.1 I had approx. __30% speed gain__.
 Sorting FFI arrays is slower than sorting tables. Yep, sometimes pure Lua
@@ -67,3 +67,4 @@ mergesort doubles  | 4.524
 mergesort floats   | 5.453
 
 Tested on iMac Core i5 2.9 GHz, 32 Gb RAM, LuaJIT 2.1.0-beta1 (torch7).
+
