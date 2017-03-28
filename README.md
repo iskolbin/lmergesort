@@ -1,5 +1,6 @@
 ![Build Status](https://travis-ci.org/iskolbin/lmergesort.svg?branch=master)
 [![license](https://img.shields.io/badge/license-public%20domain-blue.svg)]()
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 Mergesort
 =========
@@ -67,4 +68,3 @@ mergesort doubles  | 4.524
 mergesort floats   | 5.453
 
 Tested on iMac Core i5 2.9 GHz, 32 Gb RAM, LuaJIT 2.1.0-beta1 (torch7).
-
